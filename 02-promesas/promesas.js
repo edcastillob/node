@@ -21,6 +21,10 @@ const salarios = [
     {
         id: 2,
         salario: 1500
+    },
+    {
+        id: 3,
+        salario: 2500
     }
 ];
 
@@ -40,8 +44,7 @@ const getEmpleado = (id) => {
  const getSalario = (id) => { 
     
     return new Promise( ( resolve, reject ) => { 
-
-    const salario = salarios.find(( e ) => e.id === id)?.salario;
+    const salario = salarios.find(( s ) => s.id === id)?.salario;
 
         salario 
         ? resolve( salario )
@@ -49,12 +52,22 @@ const getEmpleado = (id) => {
      })    
  }
 
+ 
+ //  getEmpleado(id)
+ //  .then( empleado => console.log( empleado ))
+ //  .catch( err => console.log(err) )
+ 
+ //  getSalario(id)
+ //  .then( salario => console.log( `Su salario equivale a ${ salario } $` ))
+ //  .catch( err => console.log(err) )
+ 
+ 
  const id = 3;
-
- getEmpleado(id)
- .then( empleado => console.log( empleado ))
- .catch( err => console.log(err) )
-
- getSalario(id)
- .then( salario => console.log( `Su salario equivale a ${ salario } $` ))
- .catch( err => console.log(err) )
+ let nombre;
+getEmpleado(id)
+    .then( empleado => {
+        nombre = empleado;
+        return getSalario( id )
+    })
+    .then( salario => console.log(`El empleado ${nombre} tiene un salario de ${salario}$`))
+    .catch( err => console.log(err))
